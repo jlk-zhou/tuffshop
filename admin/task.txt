@@ -1,0 +1,5 @@
+Task: 
+Scrape the following product pages and put them all into a excel with 
+the product name, URL and URL to image. 
+
+https://tuffshop.co.uk/ppe-safety/work-safety-gloves/general-work-gloves.html
