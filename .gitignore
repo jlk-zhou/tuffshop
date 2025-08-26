@@ -1,0 +1,35 @@
+# Conda environments
+envs/
+.conda/
+
+# Python bytecode and cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+.DS_Store
+
+# Virtual environments
+venv/
+.venv/
+
+# Editor/IDE specific files
+.vscode/
+
+# Data and logs
+data/
+logs/
+*.log
+*.csv
+*.json
+*.jsonl
+
+# Sensitive configuration
+.env
+config.local.py
+
+# For own record and testing
+admin/
+*.html
+test.py

@@ -1,6 +1,6 @@
 import scrapy
-# from scrapy_playwright.page import PageMethod
-from pathlib import Path
+from scrapy.loader import ItemLoader
+from tuffshop.items import TuffshopItem
 
 
 class GeneralGlovesSpider(scrapy.Spider):
@@ -39,5 +39,19 @@ class GeneralGlovesSpider(scrapy.Spider):
             "playwright": True
         })
 
-    def parse(self, response):
-        # Define test static HTML paths
+    def parse(self, response): 
+        # Yield a TuffshopItem class for every product card available
+        for product in response.css(".item.product.product-item"): 
+            l = ItemLoader(item=TuffshopItem(), selector=product)
+            l.add_css("name", ".product-item-link::text")
+            l.add_css("price", ".price-including-tax .price::text")
+            l.add_css("price_notax", ".price-excluding-tax .price::text")
+            l.add_xpath("url", './/a[@class="overlay-link"]/@href')
+            l.add_xpath("image_url", './/img[@class="product-image-photo"]/@src')
+
+            if not product.css(".stock.unavailable"): 
+                l.add_value("in_stock", "Yes")
+            else:   
+                l.add_value("in_stock", "No")
+                
+            yield l.load_item()
